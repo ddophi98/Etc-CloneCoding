@@ -15,15 +15,13 @@ struct AddView: View {
     @State var alertTitle: String = ""
     @State var showAlert: Bool = false
     
-    let textFieldBackgroundColor = Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1))
-    
     var body: some View {
         ScrollView {
             VStack {
                 TextField("Type something here...", text: $textFieldText)
                     .padding(.horizontal)
                     .frame(height: 55)
-                    .background(textFieldBackgroundColor)
+                    .background(Color(UIColor.secondarySystemBackground))
                     .cornerRadius(10)
                 Button(action: saveButtonPressed ,label: {
                     Text("Save".uppercased())
@@ -64,9 +62,18 @@ struct AddView: View {
 
 struct AddView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            AddView()
+        Group {
+            NavigationView {
+                AddView()
+            }
+            .preferredColorScheme(.light)
+            .environmentObject(ListViewModel())
+            NavigationView {
+                AddView()
+            }
+            .preferredColorScheme(.dark)
+            .environmentObject(ListViewModel())
         }
-        .environmentObject(ListViewModel())
+        
     }
 }
