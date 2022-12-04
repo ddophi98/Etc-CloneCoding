@@ -38,6 +38,7 @@
 		BCB9F9132936168400864CB4 /* XMarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9F9122936168400864CB4 /* XMarkButton.swift */; };
 		BCC65ACD293A1A950028E647 /* PortfolioContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BCC65ACB293A1A950028E647 /* PortfolioContainer.xcdatamodeld */; };
 		BCC65ACF293A1B280028E647 /* PortfolioDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC65ACE293A1B280028E647 /* PortfolioDataService.swift */; };
+		BCC65AD1293C753E0028E647 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC65AD0293C753E0028E647 /* HapticManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		BCB9F9122936168400864CB4 /* XMarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMarkButton.swift; sourceTree = "<group>"; };
 		BCC65ACC293A1A950028E647 /* PortfolioContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PortfolioContainer.xcdatamodel; sourceTree = "<group>"; };
 		BCC65ACE293A1B280028E647 /* PortfolioDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDataService.swift; sourceTree = "<group>"; };
+		BCC65AD0293C753E0028E647 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			children = (
 				BCB9F8BD292C972D00864CB4 /* NetworkingManager.swift */,
 				BCB9F8FA292E40B700864CB4 /* LocalFileManager.swift */,
+				BCC65AD0293C753E0028E647 /* HapticManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				BCB9F8FF292E516900864CB4 /* UIApplication.swift in Sources */,
 				BCB9F8A7292A074A00864CB4 /* CircleButtonView.swift in Sources */,
 				BCB9F89D292A02A800864CB4 /* Color.swift in Sources */,
+				BCC65AD1293C753E0028E647 /* HapticManager.swift in Sources */,
 				BCB9F8FD292E4D3500864CB4 /* SearchBarView.swift in Sources */,
 				BCB9F8BE292C972D00864CB4 /* NetworkingManager.swift in Sources */,
 				BC4C04692936205F009BE111 /* CoinLogoView.swift in Sources */,
