@@ -17,18 +17,27 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                swiftfulThinkingSection
-                coinGekoSection
-                applicationSection
-            }
-            .font(.headline)
-            .accentColor(.blue)
-            .listStyle(GroupedListStyle())
-            .navigationTitle("Settings")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    XMarkButton(presentationMode: _presentationMode)
+            
+            ZStack {
+                Color.theme.background
+                    .ignoresSafeArea()
+                
+                List {
+                    swiftfulThinkingSection
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                    coinGekoSection
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                    applicationSection
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                }
+                .font(.headline)
+                .accentColor(.blue)
+                .listStyle(GroupedListStyle())
+                .navigationTitle("Settings")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        XMarkButton(presentationMode: _presentationMode)
+                    }
                 }
             }
         }
