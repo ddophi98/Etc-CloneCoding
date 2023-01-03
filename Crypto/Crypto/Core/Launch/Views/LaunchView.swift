@@ -44,6 +44,20 @@ struct LaunchView: View {
         .onAppear{
             showLoadingText.toggle()
         }
+        .onReceive(timer) { _ in
+            withAnimation(.spring()) {
+                let lastIndex = loadingText.count
+                if counter == lastIndex {
+                    counter = 0
+                    loops += 1
+                    if loops >= 2 {
+                        showLaunchView = false
+                    }
+                } else {
+                    counter += 1
+                }
+            }
+        }
         
         
     }
