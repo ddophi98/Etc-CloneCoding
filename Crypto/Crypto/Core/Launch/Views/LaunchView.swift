@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LaunchView: View {
     
-    @State private var loadingText: [String] = "Loadiing your portfolio...".map {String($0)}
+    @State private var loadingText: [String] = "Loading your portfolio...".map {String($0)}
     @State private var showLoadingText: Bool = false
     @State private var counter: Int = 0
     @State private var loops: Int = 0
@@ -44,20 +44,8 @@ struct LaunchView: View {
         .onAppear{
             showLoadingText.toggle()
         }
-        .onReceive(timer) { _ in
-            withAnimation(.spring()) {
-                let lastIndex = loadingText.count
-                if counter == lastIndex {
-                    counter = 0
-                    loops += 1
-                    if loops >= 2 {
-                        showLaunchView = false
-                    }
-                } else {
-                    counter += 1
-                }
-            }
-        }
+        
+        
     }
 }
 
