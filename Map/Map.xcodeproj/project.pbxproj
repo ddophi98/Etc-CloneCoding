@@ -16,6 +16,7 @@
 		BC4A2F4D29642ED4009396AB /* LocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2F4C29642ED4009396AB /* LocationsView.swift */; };
 		BC4A2F4F29643119009396AB /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2F4E29643119009396AB /* LocationsViewModel.swift */; };
 		BC4A2F51296590E0009396AB /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2F50296590E0009396AB /* LocationsListView.swift */; };
+		BC4A2F5329659779009396AB /* LocationPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2F5229659779009396AB /* LocationPreviewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		BC4A2F4C29642ED4009396AB /* LocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsView.swift; sourceTree = "<group>"; };
 		BC4A2F4E29643119009396AB /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
 		BC4A2F50296590E0009396AB /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
+		BC4A2F5229659779009396AB /* LocationPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreviewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			children = (
 				BC4A2F4C29642ED4009396AB /* LocationsView.swift */,
 				BC4A2F50296590E0009396AB /* LocationsListView.swift */,
+				BC4A2F5229659779009396AB /* LocationPreviewView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			files = (
 				BC4A2F4B29642DA3009396AB /* LocationsDataService.swift in Sources */,
 				BC4A2F51296590E0009396AB /* LocationsListView.swift in Sources */,
+				BC4A2F5329659779009396AB /* LocationPreviewView.swift in Sources */,
 				BC4A2F4F29643119009396AB /* LocationsViewModel.swift in Sources */,
 				BC4A2F3729642B14009396AB /* ContentView.swift in Sources */,
 				BC4A2F4D29642ED4009396AB /* LocationsView.swift in Sources */,
