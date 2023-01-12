@@ -12,6 +12,7 @@
 		BC4A2FAE296C2CEC009396AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC4A2FAD296C2CEC009396AB /* Assets.xcassets */; };
 		BC4A2FB1296C2CEC009396AB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC4A2FB0296C2CEC009396AB /* Preview Assets.xcassets */; };
 		BC4A2FB8296C2D15009396AB /* DoCatchTryThrows.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FB7296C2D15009396AB /* DoCatchTryThrows.swift */; };
+		BC4A2FBA297000C8009396AB /* DownloadImageAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FB9297000C8009396AB /* DownloadImageAsync.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		BC4A2FAD296C2CEC009396AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC4A2FB0296C2CEC009396AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BC4A2FB7296C2D15009396AB /* DoCatchTryThrows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoCatchTryThrows.swift; sourceTree = "<group>"; };
+		BC4A2FB9297000C8009396AB /* DownloadImageAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageAsync.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 				BC4A2FA9296C2CEB009396AB /* ConcurrencyApp.swift */,
 				BC4A2FAB296C2CEB009396AB /* ContentView.swift */,
 				BC4A2FB7296C2D15009396AB /* DoCatchTryThrows.swift */,
+				BC4A2FB9297000C8009396AB /* DownloadImageAsync.swift */,
 				BC4A2FAD296C2CEC009396AB /* Assets.xcassets */,
 				BC4A2FAF296C2CEC009396AB /* Preview Content */,
 			);
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC4A2FBA297000C8009396AB /* DownloadImageAsync.swift in Sources */,
 				BC4A2FB8296C2D15009396AB /* DoCatchTryThrows.swift in Sources */,
 				BC4A2FAC296C2CEB009396AB /* ContentView.swift in Sources */,
 				BC4A2FAA296C2CEB009396AB /* ConcurrencyApp.swift in Sources */,
