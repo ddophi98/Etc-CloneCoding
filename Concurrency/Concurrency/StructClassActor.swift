@@ -5,20 +5,107 @@
 //  Created by 김동락 on 2023/01/17.
 //
 
+
+/*
+ 
+ ----------------------------------
+ 
+ VALUE TYPES:
+ - Struct, Enum, String, Int, etc.
+ - Stack에 저장됨
+ - 더 빠름
+ - Thread-safe
+ - 값을 할당하거나 넘길 때 복사본을 넘김
+ 
+ REFERENCE TYPES:
+ - Class, Function, Actor
+ - Heap에 보관됨
+ - 더 느림, 하지만 동기화되어있음
+ - Thread-safe X
+ - 값을 할당하거나 넘길 때 참조를 넘김
+ 
+ ----------------------------------
+ 
+ STACK:
+ - value 타입을 저장함
+ - stack에 할당된 변수는 메모리에 직접적으로 저장되어있고, 따라서 접근이 매우 빠름
+ - 각 쓰레드는 자신만의 stack이 있음
+ 
+ HEAP:
+ - reference 타입을 저장함
+ - 쓰레드 사이에서 공유됨
+ 
+ ----------------------------------
+ 
+ STRUCT:
+ - value 기반
+ - mutate 가능 (값이 바뀐 struct를 새로 생성)
+ - stack에 저장
+ 
+ CLASS:
+ - reference 기반
+ - heap에 저장
+ - 상속 가능
+ 
+ ACTOR:
+ - class와 비슷하지만 thread-safe
+ 
+ ----------------------------------
+ 
+ Structs: Data Models, Views
+ Classes: ViewModels
+ Actors: Manager, Data Store (공유되는 것들)
+ 
+ ----------------------------------
+ 
+ */
+
 import SwiftUI
 
+class StructClassActorViewModel: ObservableObject {
+    init() {
+        print("VIEWMODEL INIT")
+    }
+}
+
 struct StructClassActor: View {
+
+    @StateObject private var viewModel = StructClassActorViewModel()
+    let isActive: Bool
+    
+    init(isActive: Bool) {
+        self.isActive = isActive
+        print("VIEW INIT")
+    }
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+            .background(isActive ? .red : .blue)
             .onAppear {
-                runTest()
+//                runTest()
             }
     }
 }
 
+struct StructClassActorHomeView: View {
+    @State private var isActive: Bool = false
+    
+    var body: some View {
+        // 탭할때마다 StructClassActor가 새롭게 초기화됨 (VIEW INIT 여러번 찍힘)
+        // StructClassActorViewModel은 한번만 초기화됨 (VIEWMODEL INIT 한번만 찍힘)
+        StructClassActor(isActive: isActive)
+            .onTapGesture {
+                isActive.toggle()
+            }
+    }
+}
+
+
 struct StructClassActor_Previews: PreviewProvider {
     static var previews: some View {
-        StructClassActor()
+        StructClassActor(isActive: true)
     }
 }
 
@@ -62,6 +149,37 @@ extension StructClassActor {
         objectB.title = "Second title!"
         print("ObjectA: ", objectA.title)
         print("ObjectB: ", objectB.title)
+    }
+    
+    // class와 거의 같음
+    // + thread-safe 특성을 가지고 있음 (await)
+    actor MyActor {
+        var title: String
+        
+        init(title: String) {
+            self.title = title
+        }
+        
+        func updateTitle(newTitle: String) {
+            title = newTitle
+        }
+    }
+    
+    private func actorTest1() {
+        Task {
+            let objectA = MyActor(title: "Starting title!")
+            // actor 프로퍼티에 접근할때마다 await 해줘야함
+            await print("ObjectA: ", objectA.title)
+            
+            let objectB = objectA
+            await print("ObjectB: ", objectB.title)
+            
+            print("ObjectB title changed.")
+
+            await objectB.updateTitle(newTitle: "Second title!")
+            await print("ObjectA: ", objectA.title)
+            await print("ObjectB: ", objectB.title)
+        }
     }
     
     private func printDivider() {
