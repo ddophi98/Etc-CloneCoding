@@ -20,6 +20,7 @@
 		BC4A2FC62975659D009396AB /* CheckedContinuation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FC52975659D009396AB /* CheckedContinuation.swift */; };
 		BC4A2FC82976B717009396AB /* StructClassActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FC72976B717009396AB /* StructClassActor.swift */; };
 		BC4A2FCA29795470009396AB /* ActorStudy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FC929795470009396AB /* ActorStudy.swift */; };
+		BC4A2FCC297961B1009396AB /* GlobalActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FCB297961B0009396AB /* GlobalActor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		BC4A2FC52975659D009396AB /* CheckedContinuation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckedContinuation.swift; sourceTree = "<group>"; };
 		BC4A2FC72976B717009396AB /* StructClassActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructClassActor.swift; sourceTree = "<group>"; };
 		BC4A2FC929795470009396AB /* ActorStudy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorStudy.swift; sourceTree = "<group>"; };
+		BC4A2FCB297961B0009396AB /* GlobalActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalActor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				BC4A2FC52975659D009396AB /* CheckedContinuation.swift */,
 				BC4A2FC72976B717009396AB /* StructClassActor.swift */,
 				BC4A2FC929795470009396AB /* ActorStudy.swift */,
+				BC4A2FCB297961B0009396AB /* GlobalActor.swift */,
 				BC4A2FAD296C2CEC009396AB /* Assets.xcassets */,
 				BC4A2FAF296C2CEC009396AB /* Preview Content */,
 			);
@@ -166,6 +169,7 @@
 			files = (
 				BC4A2FC429755E6E009396AB /* TaskGroupStudy.swift in Sources */,
 				BC4A2FC82976B717009396AB /* StructClassActor.swift in Sources */,
+				BC4A2FCC297961B1009396AB /* GlobalActor.swift in Sources */,
 				BC4A2FBA297000C8009396AB /* DownloadImageAsync.swift in Sources */,
 				BC4A2FB8296C2D15009396AB /* DoCatchTryThrows.swift in Sources */,
 				BC4A2FC22973E5E9009396AB /* AsyncLet.swift in Sources */,
