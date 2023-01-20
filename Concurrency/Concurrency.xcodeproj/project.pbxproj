@@ -22,6 +22,7 @@
 		BC4A2FCA29795470009396AB /* ActorStudy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FC929795470009396AB /* ActorStudy.swift */; };
 		BC4A2FCC297961B1009396AB /* GlobalActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FCB297961B0009396AB /* GlobalActor.swift */; };
 		BC4A2FCE297AB303009396AB /* SendableStudy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FCD297AB303009396AB /* SendableStudy.swift */; };
+		BC4A2FD0297AB7A3009396AB /* AsyncPublishStudy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FCF297AB7A3009396AB /* AsyncPublishStudy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		BC4A2FC929795470009396AB /* ActorStudy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorStudy.swift; sourceTree = "<group>"; };
 		BC4A2FCB297961B0009396AB /* GlobalActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalActor.swift; sourceTree = "<group>"; };
 		BC4A2FCD297AB303009396AB /* SendableStudy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendableStudy.swift; sourceTree = "<group>"; };
+		BC4A2FCF297AB7A3009396AB /* AsyncPublishStudy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncPublishStudy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				BC4A2FC929795470009396AB /* ActorStudy.swift */,
 				BC4A2FCB297961B0009396AB /* GlobalActor.swift */,
 				BC4A2FCD297AB303009396AB /* SendableStudy.swift */,
+				BC4A2FCF297AB7A3009396AB /* AsyncPublishStudy.swift */,
 				BC4A2FAD296C2CEC009396AB /* Assets.xcassets */,
 				BC4A2FAF296C2CEC009396AB /* Preview Content */,
 			);
@@ -178,6 +181,7 @@
 				BC4A2FC22973E5E9009396AB /* AsyncLet.swift in Sources */,
 				BC4A2FBC29713083009396AB /* AsyncAwait.swift in Sources */,
 				BC4A2FCA29795470009396AB /* ActorStudy.swift in Sources */,
+				BC4A2FD0297AB7A3009396AB /* AsyncPublishStudy.swift in Sources */,
 				BC4A2FAC296C2CEB009396AB /* ContentView.swift in Sources */,
 				BC4A2FC02973D8B6009396AB /* TaskStudy.swift in Sources */,
 				BC4A2FCE297AB303009396AB /* SendableStudy.swift in Sources */,
