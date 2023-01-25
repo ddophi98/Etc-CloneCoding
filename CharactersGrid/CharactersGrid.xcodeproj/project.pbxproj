@@ -20,6 +20,8 @@
 		8B89C3D525198B5000B75EE4 /* SectionCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89C3D425198B5000B75EE4 /* SectionCharacters.swift */; };
 		8B89C3D725198B8D00B75EE4 /* Universe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89C3D625198B8D00B75EE4 /* Universe.swift */; };
 		8B89C3E625198F5D00B75EE4 /* UISegmentedControl+Universe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B89C3E525198F5D00B75EE4 /* UISegmentedControl+Universe.swift */; };
+		BC4A2FD2298147EC009396AB /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FD1298147EC009396AB /* CharacterCell.swift */; };
+		BC4A2FD429814E26009396AB /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FD329814E26009396AB /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		8B89C3D425198B5000B75EE4 /* SectionCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCharacters.swift; sourceTree = "<group>"; };
 		8B89C3D625198B8D00B75EE4 /* Universe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Universe.swift; sourceTree = "<group>"; };
 		8B89C3E525198F5D00B75EE4 /* UISegmentedControl+Universe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Universe.swift"; sourceTree = "<group>"; };
+		BC4A2FD1298147EC009396AB /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = SOURCE_ROOT; };
+		BC4A2FD329814E26009396AB /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,8 @@
 		8B89C3C9251989EA00B75EE4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BC4A2FD1298147EC009396AB /* CharacterCell.swift */,
+				BC4A2FD329814E26009396AB /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,9 +208,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B89C3D525198B5000B75EE4 /* SectionCharacters.swift in Sources */,
+				BC4A2FD429814E26009396AB /* HeaderView.swift in Sources */,
 				8B89C3D725198B8D00B75EE4 /* Universe.swift in Sources */,
 				8B89C3E625198F5D00B75EE4 /* UISegmentedControl+Universe.swift in Sources */,
 				8B89C3B22519881100B75EE4 /* AppDelegate.swift in Sources */,
+				BC4A2FD2298147EC009396AB /* CharacterCell.swift in Sources */,
 				8B89C3D125198ACB00B75EE4 /* Character.swift in Sources */,
 				8B89C3B42519881100B75EE4 /* SceneDelegate.swift in Sources */,
 				8B89C3D325198B0200B75EE4 /* Stubs.swift in Sources */,
