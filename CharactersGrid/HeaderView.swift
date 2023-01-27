@@ -27,12 +27,18 @@ class HeaderView: UICollectionReusableView {
         
         addSubview(textLabel)
         
+        // NSLayoutConstraint 오류 고치기 위함
+        let trailingConstraint = textLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16)
+        trailingConstraint.priority = .init(rawValue: 999)
+        
+        let bottomConstraint = textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+        bottomConstraint.priority = .init(rawValue: 999)
+        
         NSLayoutConstraint.activate([
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            textLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
-        
+            trailingConstraint,
+            bottomConstraint
         ])
     }
     

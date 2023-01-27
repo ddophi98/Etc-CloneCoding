@@ -23,11 +23,19 @@ class CharacterCell: UICollectionViewCell {
         fatalError("Xib/storyboard is not supported")
     }
     
+    // self-sizing과 관련있는 코드
+    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+        let padding: CGFloat = 8
+        let noOfItems = traitCollection.horizontalSizeClass == .compact ? 4 : 8
+        let itemWidth = floor((UIScreen.main.bounds.width - (padding*2)) / CGFloat(noOfItems))
+        return super.systemLayoutSizeFitting(.init(width: itemWidth, height: UIView.layoutFittingExpandedSize.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+    }
+    
     private func setupLayout() {
         imageView.contentMode = .scaleAspectFit
         
         textLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
-        textLabel.adjustsFontSizeToFitWidth = true
+        textLabel.adjustsFontForContentSizeCategory = true
         textLabel.textAlignment = .center
         
         vStack.axis = .vertical
@@ -39,6 +47,10 @@ class CharacterCell: UICollectionViewCell {
         contentView.addSubview(vStack)
         vStack.addArrangedSubview(imageView)
         vStack.addArrangedSubview(textLabel)
+        
+        // NSLayoutConstraint 오류 고치기 위함
+        let imageHeightConstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+        imageHeightConstraint.priority = .init(999)
         
         NSLayoutConstraint.activate([
             
@@ -52,7 +64,7 @@ class CharacterCell: UICollectionViewCell {
             vStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             vStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             vStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+            imageHeightConstraint
         ])
     }
     
