@@ -23,6 +23,7 @@
 		BC4A2FD2298147EC009396AB /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FD1298147EC009396AB /* CharacterCell.swift */; };
 		BC4A2FD429814E26009396AB /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FD329814E26009396AB /* HeaderView.swift */; };
 		BC4A2FD629828FF8009396AB /* SingleSectionCharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FD529828FF8009396AB /* SingleSectionCharactersViewController.swift */; };
+		BC4A2FD82983DF36009396AB /* MultipleSectionCharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC4A2FD72983DF36009396AB /* MultipleSectionCharactersViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		BC4A2FD1298147EC009396AB /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = SOURCE_ROOT; };
 		BC4A2FD329814E26009396AB /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = SOURCE_ROOT; };
 		BC4A2FD529828FF8009396AB /* SingleSectionCharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionCharactersViewController.swift; sourceTree = SOURCE_ROOT; };
+		BC4A2FD72983DF36009396AB /* MultipleSectionCharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleSectionCharactersViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				BC4A2FD529828FF8009396AB /* SingleSectionCharactersViewController.swift */,
+				BC4A2FD72983DF36009396AB /* MultipleSectionCharactersViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B89C3D525198B5000B75EE4 /* SectionCharacters.swift in Sources */,
+				BC4A2FD82983DF36009396AB /* MultipleSectionCharactersViewController.swift in Sources */,
 				BC4A2FD429814E26009396AB /* HeaderView.swift in Sources */,
 				BC4A2FD629828FF8009396AB /* SingleSectionCharactersViewController.swift in Sources */,
 				8B89C3D725198B8D00B75EE4 /* Universe.swift in Sources */,

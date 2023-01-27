@@ -1,21 +1,19 @@
 //
-//  SingleSectionCharactersViewController.swift
+//  MultipleSectionCharactersViewController.swift
 //  CharactersGrid
 //
-//  Created by 김동락 on 2023/01/26.
+//  Created by 김동락 on 2023/01/27.
 //
 
 import UIKit
 import SwiftUI
 
-class SingleSectionCharactersViewController: UIViewController {
+class MultipleSectionCharactersViewController: UIViewController {
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var characters = Universe.ff7r.stubs {
+    var sectionedStubs = Universe.ff7r.sectionedStubs {
         didSet {
-            // 데이터 바뀌면 알아서 reload 되게 하기
-            // collectionView.reloadData()
-            updateCollectionView(oldItems: oldValue, newItems: characters)
+            updateCollectionView(oldSectionItems: oldValue, newSectionItems: sectionedStubs)
         }
     }
     let segmentedControl = UISegmentedControl(
@@ -37,22 +35,53 @@ class SingleSectionCharactersViewController: UIViewController {
     }
     
     // 업데이트할 때 애니메이션 나타나게 하기
-    private func updateCollectionView(oldItems: [Character], newItems: [Character]) {
-        collectionView.performBatchUpdates {
-            let diff = newItems.difference(from: oldItems)
-            diff.forEach { change in
-                switch change {
-                case let .remove(offset, _, _):
-                    self.collectionView.deleteItems(at: [IndexPath(item: offset, section: 0)])
-                case let .insert(offset, _, _):
-                    self.collectionView.insertItems(at: [IndexPath(item: offset, section: 0)])
+    private func updateCollectionView(oldSectionItems: [SectionCharacters], newSectionItems: [SectionCharacters]) {
+        var sectionsToInsert = IndexSet()
+        var sectionsToRemove = IndexSet()
+        
+        var indexPathsToInsert = [IndexPath]()
+        var indexPathsToDelete = [IndexPath]()
+        
+        let sectionDiff = newSectionItems.difference(from: oldSectionItems)
+        
+        sectionDiff.forEach { change in
+            switch change {
+            case let .remove(offset, _, _):
+                sectionsToRemove.insert(offset)
+            case let .insert(offset, _, _):
+                sectionsToInsert.insert(offset)
+            }
+        }
+        
+        (0..<newSectionItems.count).forEach { index in
+            let newsectionCharacter = newSectionItems[index]
+            if let oldSectionIndex = oldSectionItems.firstIndex(of: newsectionCharacter) {
+                let oldSectionCharacter = oldSectionItems[oldSectionIndex]
+                let diff = newsectionCharacter.characters.difference(from: oldSectionCharacter.characters)
+                
+                diff.forEach { change in
+                    switch change {
+                    case let .remove(offset, _, _):
+                        indexPathsToDelete.append(IndexPath(item: offset, section: oldSectionIndex))
+                    case let .insert(offset, _, _):
+                        indexPathsToInsert.append(IndexPath(item: offset, section: index))
+                    }
                 }
             }
+        }
+        
+        collectionView.performBatchUpdates {
+            self.collectionView.deleteSections(sectionsToRemove)
+            self.collectionView.deleteItems(at: indexPathsToDelete)
+            
+            self.collectionView.insertSections(sectionsToInsert)
+            self.collectionView.insertItems(at: indexPathsToInsert)
         } completion: { _ in
             let headerIndexPaths = self.collectionView.indexPathsForVisibleSupplementaryElements(ofKind: UICollectionView.elementKindSectionHeader)
             headerIndexPaths.forEach { indexPath in
                 let headerView = self.collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath) as! HeaderView
-                headerView.setup(text: "Characters \(self.characters.count)")
+                let section = self.sectionedStubs[indexPath.section]
+                headerView.setup(text: "\(section.category) \(section.characters.count)".uppercased())
             }
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
@@ -95,66 +124,63 @@ class SingleSectionCharactersViewController: UIViewController {
     }
     
     @objc func segmentChanged(_ sender: UISegmentedControl) {
-        characters = sender.selectedUniverse.stubs
+        sectionedStubs = sender.selectedUniverse.sectionedStubs
     }
     
     @objc func shuffleTapped() {
-        characters.shuffle()
+        sectionedStubs = sectionedStubs.shuffled().map{
+            SectionCharacters(category: $0.category, characters: $0.characters.shuffled())
+        }
     }
 }
 
-extension SingleSectionCharactersViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MultipleSectionCharactersViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        sectionedStubs.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        characters.count
+        sectionedStubs[section].characters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CharacterCell
-        let character = characters[indexPath.item]
+        let character = sectionedStubs[indexPath.section].characters[indexPath.item]
         cell.setup(character: character)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! HeaderView
-        headerView.setup(text: "Characters \(characters.count)")
+        let section = sectionedStubs[indexPath.section]
+        headerView.setup(text: "\(section.category) \(section.characters.count)".uppercased())
         return headerView
     }
     
-    /*
-    // 이렇게 정의할 수도 있고 위에 setupLayout 함수처럼 정의할 수도 있음
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        <#code#>
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        <#code#>
-    }
-     */
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let headerView = HeaderView()
-        headerView.setup(text: "Characters \(characters.count)")
+        let section = sectionedStubs[section]
+        headerView.setup(text: "\(section.category) \(section.characters.count))".uppercased())
         return headerView.systemLayoutSizeFitting(.init(width: collectionView.bounds.width, height: UIView.layoutFittingExpandedSize.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
     }
 }
 
 
-struct SingleSectionCharactersViewControllerRepresentable: UIViewControllerRepresentable {
+struct MultipleSectionCharactersViewControllerRepresentable: UIViewControllerRepresentable {
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        UINavigationController(rootViewController: SingleSectionCharactersViewController())
+        UINavigationController(rootViewController: MultipleSectionCharactersViewController())
     }
 }
 
-struct SingleSectionCharactersViewController_Previews: PreviewProvider {
+struct MultipleSectionCharactersViewController_Previews: PreviewProvider {
     static var previews: some View {
-        SingleSectionCharactersViewControllerRepresentable()
+        MultipleSectionCharactersViewControllerRepresentable()
             .edgesIgnoringSafeArea(.top)
             // 글자 크기를 조정함
             .environment(\.sizeCategory, ContentSizeCategory.extraExtraExtraLarge)
