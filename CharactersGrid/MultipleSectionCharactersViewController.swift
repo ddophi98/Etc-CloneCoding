@@ -16,6 +16,13 @@ class MultipleSectionCharactersViewController: UIViewController {
             updateCollectionView(oldSectionItems: oldValue, newSectionItems: sectionedStubs)
         }
     }
+    
+    // 안전하게 등록 도와줌 (ver2)
+    // 1. 강제 타입 캐스팅 안해도됨
+    // 2. String 값인 identifier를 잘못 쓰는 실수 안할 수 있음
+    private var cellRegistration: UICollectionView.CellRegistration<CharacterCell, Character>!
+    private var headerRegistration: UICollectionView.SupplementaryRegistration<HeaderView>!
+    
     let segmentedControl = UISegmentedControl(
         items: Universe.allCases.map{ $0.title }
     )
@@ -96,8 +103,16 @@ class MultipleSectionCharactersViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: "Cell")
-        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
+        // collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: "Cell")
+        cellRegistration = UICollectionView.CellRegistration(handler: { cell, _, character in
+            cell.setup(character: character)
+        })
+        
+        // collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
+        headerRegistration = UICollectionView.SupplementaryRegistration(elementKind: UICollectionView.elementKindSectionHeader, handler: { header, _, indexPath in
+            let section = self.sectionedStubs[indexPath.section]
+            header.setup(text: "\(section.category) \(section.characters.count)".uppercased())
+        })
         
         view.addSubview(collectionView)
     }
@@ -145,16 +160,18 @@ extension MultipleSectionCharactersViewController: UICollectionViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CharacterCell
         let character = sectionedStubs[indexPath.section].characters[indexPath.item]
-        cell.setup(character: character)
+        // let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CharacterCell
+        // cell.setup(character: character)
+        let cell = collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: character)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! HeaderView
-        let section = sectionedStubs[indexPath.section]
-        headerView.setup(text: "\(section.category) \(section.characters.count)".uppercased())
+        // let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! HeaderView
+        // let section = sectionedStubs[indexPath.section]
+        // headerView.setup(text: "\(section.category) \(section.characters.count)".uppercased())
+        let headerView = collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
         return headerView
     }
     
