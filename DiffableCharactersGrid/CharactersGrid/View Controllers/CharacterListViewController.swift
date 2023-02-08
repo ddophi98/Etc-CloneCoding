@@ -19,7 +19,8 @@ class CharacterListViewController: UIViewController {
     )
     var backingStore: [SectionCharactersTuple]
     private var dataSource: UICollectionViewDiffableDataSource<Section, Character>!
-
+    private var selectedCharacters = Set<Character>()
+    
     private var searchText = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
     
@@ -29,6 +30,23 @@ class CharacterListViewController: UIViewController {
     private lazy var listLayout: UICollectionViewLayout = {
         var listConfig = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         listConfig.headerMode = .supplementary
+        listConfig.trailingSwipeActionsConfigurationProvider = { indexPath -> UISwipeActionsConfiguration? in
+            guard let character = self.dataSource.itemIdentifier(for: indexPath) else {
+                return nil
+            }
+            return UISwipeActionsConfiguration(
+                actions: [
+                    UIContextualAction(
+                        style: .destructive,
+                        title: "Delete",
+                        handler: { [weak self] _, _, completion in
+                            self?.deleteCharacter(character)
+                            completion(true)
+                        }
+                    )
+                ]
+            )
+        }
         return UICollectionViewCompositionalLayout.list(using: listConfig)
     }()
         
@@ -55,10 +73,16 @@ class CharacterListViewController: UIViewController {
     }
     
     private func setupBaritems() {
+        navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(image: UIImage(systemName: "shuffle"), style: .plain, target: self, action: #selector(shuffleTapped)),
             UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise.circle"), style: .plain, target: self, action: #selector(resetTapped))
         ]
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        collectionView.isEditing = editing
     }
     
     private func setupSearchBar() {
@@ -96,13 +120,27 @@ class CharacterListViewController: UIViewController {
         
         cellRegistration = UICollectionView.CellRegistration(
             handler: { (cell: UICollectionViewListCell, _, character: Character) in
-                var content = cell.defaultContentConfiguration()
+                var content = UIListContentConfiguration.valueCell()
                 content.text = character.name
                 content.secondaryText = character.job
                 content.image = UIImage(named: character.imageName)
-                content.imageProperties.maximumSize = .init(width: 60, height: 60)
-                content.imageProperties.cornerRadius = 30
+                content.imageProperties.maximumSize = .init(width: 24, height: 24)
+                content.imageProperties.cornerRadius = 12
                 cell.contentConfiguration = content
+                
+                // 각각의 리스트 셀에 요소 추가
+                var accessories: [UICellAccessory] = [
+                    .delete(displayed: .whenEditing, actionHandler: { [weak self] in
+                        self?.deleteCharacter(character)
+                    }),
+                    .reorder(displayed: .whenEditing)
+                ]
+                
+                if self.selectedCharacters.contains(character) {
+                    accessories.append(.checkmark(displayed: .whenNotEditing))
+                }
+                
+                cell.accessories = accessories
             })
         
         headerRegistration = UICollectionView.SupplementaryRegistration(elementKind: UICollectionView.elementKindSectionHeader, handler: { [weak self] (header: UICollectionViewListCell, _, indexPath) in
@@ -110,7 +148,19 @@ class CharacterListViewController: UIViewController {
             self.configureHeaderView(header, at: indexPath)
         })
         
+        collectionView.delegate = self
         collectionView.dataSource = self
+    }
+    
+    private func deleteCharacter(_ character: Character) {
+        guard let indexPath = dataSource.indexPath(for: character) else { return }
+        backingStore[indexPath.section].characters.remove(at: indexPath.item)
+        selectedCharacters.remove(character)
+        
+        // 달라진 부분, 즉 삭제한 부분만 스냅샷을 통해 업데이트
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteItems([character])
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func setupDataSource() {
@@ -123,6 +173,24 @@ class CharacterListViewController: UIViewController {
             guard let self = self else { return UICollectionReusableView()}
             let headerView = collectionView.dequeueConfiguredReusableSupplementary(using: self.headerRegistration, for: indexPath)
             return headerView
+        }
+        
+        // reorder 가능한 떄를 설정
+        dataSource.reorderingHandlers.canReorderItem = { character -> Bool in
+            (self.navigationItem.searchController?.searchBar.text ?? "").isEmpty
+        }
+        
+        // reorder 된 후에 설정
+        dataSource.reorderingHandlers.didReorder = { transaction in
+            var backingStore = self.backingStore
+            for sectionTransaction in transaction.sectionTransactions {
+                let sectionIdentifier = sectionTransaction.sectionIdentifier
+                if let sectionIndex = transaction.finalSnapshot.indexOfSection(sectionIdentifier) {
+                    backingStore[sectionIndex].characters = sectionTransaction.finalSnapshot.items
+                }
+            }
+            self.backingStore = backingStore
+            self.reloadHeaders()
         }
     }
     
@@ -204,6 +272,25 @@ extension CharacterListViewController: UICollectionViewDataSource {
         return headerView
     }
     
+}
+
+extension CharacterListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let character = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        if selectedCharacters.contains(character) {
+            selectedCharacters.remove(character)
+        } else {
+            selectedCharacters.insert(character)
+        }
+        
+        // 달라진 부분, 즉 선택한 부분만 스냅샷을 통해 업데이트
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadItems([character])
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
 }
 
 extension CharacterListViewController: UISearchResultsUpdating {
